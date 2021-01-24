@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script>
+    	// ex) h3 시험시작(5초 후 종료) ==> 클릭시 5초 후에 alert 시험 종료 처리 되게 하고 
+    //		h3에도 시험종료됨 출력하세요.
+    function call1(){
+        var set01 = setTimeout(function(){
+            alert("시험 종료");
+            document.querySelector("h3").innerHTML="시험종료";
+            clearTimeout(set01);
+        },5000)
+    }
+    // 구구단 10문제 보여주고 하기
+    function call2(){
+    var testObj = document.querySelector("#test");
+    var show="";
+    for(var cnt=1;cnt<=10;cnt++){
+        var num01 = (parseInt)(Math.random()*8+2);
+        var num02 = (parseInt)(Math.random()*9+1);
+        show += num01+" X "+num02+" = "+"<input/><br>";
+    }
+    testObj.innerHTML+=show;
+    var set01 = setTimeout(function(){
+        testObj.innerHTML="";
+        document.querySelector("h3").innerHTML="시험종료";
+    },3000)
+    }
+    // ex) 카운트다운 10=>0까지. 카운트다운 클릭시 출력하고 0이 될 때 '발사!!'
+    
+    function call3(){
+        var cnt=10;
+        var show="";
+        var set01 = setInterval(function(){
+            document.querySelector("h2").innerHTML=cnt;
+            if(cnt==0){
+                document.querySelector("h2").innerHTML="발사!";
+                clearInterval(set01);
+            }
+            cnt--;
+        },1000)
+    }
+   
+    
+</script>
+</head>
+<body>
+    <h3 onclick="call2()">구구단 시험 시작 제한시간 3초</h3>
+    <h3 id="testprint"></h3>
+    <div id="test"></div>
+    <h2 onclick="call3()">카운트다운(10부터)</h2>
+    <table width="300" height="300" border>
+        <col width="33%"><col width="33%"><col width="33%">
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+    </table>
+    <script>
+     // 두더지잡기   
+     var tdObj = document.querySelectorAll("td");
+     for(var i=0;i<tdObj.length;i++){
+         tdObj[i].innerHTML=i+1;
+     }
+     var set01 = setInterval(function(){
+         for(var i=0;i<9;i++){
+             tdObj[i].style.backgroundColor="white";
+             tdObj[i].style.color="black";
+         }
+         var ran = (parseInt)(Math.random()*tdObj.length);
+         tdObj[ran].style.backgroundColor="blue";
+         tdObj[ran].style.color="yellow";
+     },500)
+    </script>    
+</body>
+</html>
