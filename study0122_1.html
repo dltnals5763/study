@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script>
+    /*2번 문제*/
+
+</script>
+</head>
+<body>
+    <!--1번-->
+    <div><input type="button" value="주사위 시작" onclick="pro1()"></div>
+    <table border width="300" height="300" id="table1">
+        <tr><td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td></tr>
+        <tr><td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td></tr> 
+        <tr><td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td></tr>          
+        <tr><td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td></tr>   
+        <tr><td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td></tr>    
+    </table>
+    <h3></h3>
+
+    <!--2번-->
+    <img src="img/one.png" width="200" height="200" id="mainImage">
+
+    <!--3번-->
+    <table border width="300" height="300">
+        <tr><td colspan="5" id="val"></td></tr>
+        <tr><td onclick="calcu(this.innerHTML)">0</td>
+            <td onclick="calcu(this.innerHTML)">1</td>
+            <td onclick="calcu(this.innerHTML)">2</td>
+            <td onclick="calcu(this.innerHTML)">3</td>
+            <td onclick="calcu(this.innerHTML)">4</td></tr> 
+        <tr><td onclick="calcu(this.innerHTML)">5</td>
+            <td onclick="calcu(this.innerHTML)">6</td>
+            <td onclick="calcu(this.innerHTML)">7</td>
+            <td onclick="calcu(this.innerHTML)">8</td>
+            <td onclick="calcu(this.innerHTML)">9</td></tr> 
+        <tr><td onclick="calcu(this.innerHTML)">+</td>
+            <td onclick="calcu(this.innerHTML)">-</td>
+            <td onclick="calcu(this.innerHTML)">*</td>
+            <td onclick="calcu(this.innerHTML)">/</td>
+            <td onclick="answer()">=</td></tr>      
+    </table>
+</body>
+<script>
+/*
+[중] 1. 주사위를 던지고(숫자 text로 출력), 나온 수 만큼 말이 움직이게 처리하세요.(5X5테이블에서)
+[상] 2. 주사위를 던지고(이미지6개가 0.1초마다 돌아가다가 3초에 멈추기), 
+    나온 수 만큼 말이 움직이게 처리하세요.(5X5테이블에서)
+[중] 3. 4X5에서 상단에 출력되고 하단에 숫자 0~9까지 구성되고 4칙연산과 = 이 포함되어 있을 때, 숫자를 누를때 마다,
+    합쳐진 최상단 셀에 표시되고 =을 클릭시, 계산결과가 처리되는 일반 계산기를 만드세요.
+[하] 4. 화살표 함수의 형식과 물건갯수과 가격을 처리해는 화살표함수를 처리하세요.
+*/
+    /*1번 문제*/
+    var tdObj = document.querySelectorAll("#table1 td");
+    for(var i=0;i<tdObj.length;i++){
+        tdObj[i].innerHTML=i+1;
+    }
+    var cnt=0;
+    function pro1(){
+        var ran = (parseInt)(Math.random()*6+1);
+        document.querySelector("h3").innerHTML=ran;
+        var sum = cnt+ran;
+        if(sum>=25){
+            document.querySelector("h3").innerHTML="완주하였습니다^^";
+        }
+        tdObj[sum].style.backgroundColor="blue"; /*말이 있는 셀은 파랑색*/
+        tdObj[sum-ran].style.backgroundColor="white"; /*말의 직전 위치는 다시 흰색으로*/
+        cnt=sum;
+    }
+
+    /*2번 문제*/
+    var myImage = document.getElementById("mainImage");
+    var imageArray = ["img/one.png","img/two.png","img/three.png",
+                "img/four.png","img/five.png","img/six.png"];
+    var imageIndex = 0;
+    function changeImage(){
+        myImage.setAttribute("src", imageArray[imageIndex]);
+        imageIndex++;
+        if(imageIndex>=imageArray.length){
+            imageIndex=0;
+        }
+    }
+    var second=0;     
+    setTimeout(function(){
+        var set1 = setInterval(changeImage,100); 
+        var second=0;
+        var set2 = setTimeout(function(){
+            second = 3;
+            if(second==3){
+                clearInterval(set1);
+            }
+        },3000)
+    },0)   
+    
+    /*3번 문제*/
+    var sum=0;
+    function calcu(obj){
+        document.querySelector("#val").innerHTML+=obj;
+    }
+    function answer(){
+        var show =  document.querySelector("#val").innerHTML;
+        document.querySelector("#val").innerHTML=eval(show);
+    }
+</script>
+</html>
